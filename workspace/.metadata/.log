@@ -289,3 +289,47 @@ java.lang.ClassCastException: org.eclipse.osgi.internal.framework.EquinoxConfigu
 
 !ENTRY org.eclipse.core.net 1 0 2014-10-08 12:58:41.244
 !MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16|10.150/16|*.10.150/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-10-08 15:15:43.664 -----------------------------------------------
+eclipse.buildId=4.4.1.M20140925-0400
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/lucho/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/lucho/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.m2e.logback.configuration 2 0 2014-10-08 15:16:07.602
+!MESSAGE Exception while setting up logging:org.eclipse.osgi.internal.framework.EquinoxConfiguration$1 cannot be cast to java.lang.String
+!STACK 0
+java.lang.ClassCastException: org.eclipse.osgi.internal.framework.EquinoxConfiguration$1 cannot be cast to java.lang.String
+	at org.eclipse.m2e.logback.configuration.LogHelper.logJavaProperties(LogHelper.java:26)
+	at org.eclipse.m2e.logback.configuration.LogPlugin.loadConfiguration(LogPlugin.java:189)
+	at org.eclipse.m2e.logback.configuration.LogPlugin.configureLogback(LogPlugin.java:144)
+	at org.eclipse.m2e.logback.configuration.LogPlugin.access$2(LogPlugin.java:107)
+	at org.eclipse.m2e.logback.configuration.LogPlugin$1.run(LogPlugin.java:62)
+	at java.util.TimerThread.mainLoop(Timer.java:512)
+	at java.util.TimerThread.run(Timer.java:462)
+
+!ENTRY org.eclipse.core.net 1 0 2014-10-08 15:16:15.206
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16|10.150/16|*.10.150/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface.text 2 0 2014-10-08 15:18:55.422
+!MESSAGE 
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jdt.internal.ui.viewsupport.BindingLabelProvider.getAdornmentFlags(BindingLabelProvider.java:46)
+	at org.eclipse.jdt.internal.ui.viewsupport.BindingLabelProvider.getBindingImageDescriptor(BindingLabelProvider.java:481)
+	at org.eclipse.jdt.internal.corext.fix.LinkedProposalPositionGroup$JavaLinkedModeProposal.<init>(LinkedProposalPositionGroup.java:209)
+	at org.eclipse.jdt.internal.corext.fix.LinkedProposalPositionGroup.addProposal(LinkedProposalPositionGroup.java:264)
+	at org.eclipse.jdt.internal.ui.text.correction.proposals.LinkedCorrectionProposal.addLinkedPositionProposal(LinkedCorrectionProposal.java:141)
+	at org.eclipse.jdt.internal.ui.text.correction.proposals.AssignToVariableAssistProposal.evaluateType(AssignToVariableAssistProposal.java:351)
+	at org.eclipse.jdt.internal.ui.text.correction.proposals.AssignToVariableAssistProposal.addFieldDeclaration(AssignToVariableAssistProposal.java:335)
+	at org.eclipse.jdt.internal.ui.text.correction.proposals.AssignToVariableAssistProposal.doAddField(AssignToVariableAssistProposal.java:256)
+	at org.eclipse.jdt.internal.ui.text.correction.proposals.AssignToVariableAssistProposal.getRewrite(AssignToVariableAssistProposal.java:139)
+	at org.eclipse.jdt.ui.text.java.correction.ASTRewriteCorrectionProposal.addEdits(ASTRewriteCorrectionProposal.java:113)
+	at org.eclipse.jdt.ui.text.java.correction.CUCorrectionProposal.createTextChange(CUCorrectionProposal.java:234)
+	at org.eclipse.jdt.ui.text.java.correction.CUCorrectionProposal.createChange(CUCorrectionProposal.java:244)
+	at org.eclipse.jdt.ui.text.java.correction.ChangeCorrectionProposal.getChange(ChangeCorrectionProposal.java:377)
+	at org.eclipse.jdt.ui.text.java.correction.CUCorrectionProposal.getTextChange(CUCorrectionProposal.java:254)
+	at org.eclipse.jdt.ui.text.java.correction.CUCorrectionProposal.getAdditionalProposalInfo(CUCorrectionProposal.java:141)
+	at org.eclipse.jface.text.contentassist.AdditionalInfoController$3.run(AdditionalInfoController.java:106)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)

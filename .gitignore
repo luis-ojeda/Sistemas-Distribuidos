@@ -10,5 +10,5 @@ tmp/
 *~.nib
 local.properties
 .settings/
-.metadata/
+workspace/.metadata/
 .loadpath

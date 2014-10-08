@@ -74,7 +74,7 @@ public class ServerTCP extends Thread{
             System.out.println("No pudo arrancar " + e.getMessage());
         }
 
-        System.out.println(" Conexi�n desde :  " + sock.getInetAddress());
+        System.out.println(" Conexion desde :  " + sock.getInetAddress());
 
     } // main
     

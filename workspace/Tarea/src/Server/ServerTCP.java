@@ -12,6 +12,7 @@ public class ServerTCP extends Thread{
    
     
 	Mensaje mensajes ;
+	String mensaje_a_enviar;
 	  
   
 	//contructor de la clase
@@ -64,8 +65,12 @@ public class ServerTCP extends Thread{
                 
                 // Enviar al cliente un mensaje de respuesta
                 PrintStream ios = new PrintStream(sock.getOutputStream());
-                ios.println(mensajes.muestratodo());
-                ios.println("Hola desde el servidor!");
+                
+                //envia el mensaje
+               String clave = "Get";
+               
+               mensajes.Mensaje_al_cliente(clave, sock);
+              
                 ios.close();
 
                 // Cerrar la conexion del socket!
@@ -81,6 +86,12 @@ public class ServerTCP extends Thread{
         System.out.println(" Conexion desde :  " + sock.getInetAddress());
 
     } // main
+    
+    
+    
+    
+    
+    
     
     
     

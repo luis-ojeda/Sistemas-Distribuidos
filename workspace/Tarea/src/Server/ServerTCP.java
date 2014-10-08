@@ -9,14 +9,17 @@ public class ServerTCP extends Thread{
 	//Parametros para el servidor de TCD
     // Numero de puerto debe ser mayor que 1024
     public static final int PORT = 9025;
+   
     
-    String[ ] mensajes = new String[100];
+	Mensaje mensajes ;
+	  
   
 	//contructor de la clase
-		public ServerTCP(String str,  String[ ] mensajes2) {
+		public ServerTCP(String str,  Mensaje mensajes2) {
 	        super(str);
-	        this.mensajes = mensajes2;
+	        this.mensajes= mensajes2; 
 	    }
+	
 	
 	
 	////////////////////////////////////////////////
@@ -38,12 +41,12 @@ public class ServerTCP extends Thread{
         	//  Inicializando el ServerSocket
             sersock = new ServerSocket(PORT);
 
-            // Dar los detalles de la m�quina y n�mero de puerto
+            // Dar los detalles de la maquina y numero de puerto
 
             System.out.println("Servidor ha arrancado: " + sersock);
 
-            // Hacer una conexi�n de socket a un cliente espec�fico
-            // que permita comunicaci�n bidireccional
+    		// Hacer una conexion de socket a un cliente especifico
+            // que permita comunicacion bidireccional
 
             for (;;) {
                 System.out.println("Esperando conexion: " + sock);
@@ -58,17 +61,10 @@ public class ServerTCP extends Thread{
                         new InputStreamReader(sock.getInputStream()));
 
                 System.out.println(is.readLine());
-
+                
                 // Enviar al cliente un mensaje de respuesta
                 PrintStream ios = new PrintStream(sock.getOutputStream());
-                ios.println("Hola desde el servidor!");
-                /*
-                for(int i=0; i<mensajes.length; i++){
-        			if(mensajes[i]==null){
-        				break;
-        			}
-        			ios.println(mensajes[i]);
-                }*/
+                ios.println(mensajes.muestratodo());
                 ios.println("Hola desde el servidor!");
                 ios.close();
 

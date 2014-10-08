@@ -3,11 +3,10 @@ import java.awt.event.*;
 
 public class ExitListenerServer extends WindowAdapter {
 
-	ServerGUI server;
 	ServerMulticaster servermulticaster;
 
-   public ExitListenerServer(ServerGUI serverGUI) {
-      this.server = serverGUI;
+   public ExitListenerServer(ServerMulticaster servermulticaster2) {
+	   this.servermulticaster = servermulticaster2;
    }
       
    public void windowClosing(WindowEvent e) {

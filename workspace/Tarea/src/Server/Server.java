@@ -8,20 +8,22 @@ package Server;
 public class Server  {
 	
 	static ChatFrameServer  gui;
-	static String[ ] mensajes = new String[100];
+	static Mensaje mensajes ;
+   
 	
     public static void main(String args[]) {
     	
     	
     	
+    	gui = new ChatFrameServer("Chat con IP-Multicast: Server");
+    	mensajes = new Mensaje(gui);
     	ServerMulticaster servemulticaster = new ServerMulticaster("servemulticaster");
-    	ServerGUI servergui = new ServerGUI(gui,servemulticaster,mensajes);
     	ServerTCP servertcp = new ServerTCP("servertcp",mensajes);
+    	ServerGUI servergui = new ServerGUI(gui,servemulticaster,mensajes);
+    	
      	servergui.GUI();
      	servertcp.start();
     	servemulticaster.start();
-    	
-
     } // main
     
     

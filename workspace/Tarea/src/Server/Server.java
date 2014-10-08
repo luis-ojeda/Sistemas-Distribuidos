@@ -16,8 +16,9 @@ public class Server  {
     	
     	ServerMulticaster servemulticaster = new ServerMulticaster("servemulticaster");
     	ServerGUI servergui = new ServerGUI(gui,servemulticaster,mensajes);
+    	ServerTCP servertcp = new ServerTCP("servertcp",mensajes);
      	servergui.GUI();
-    	new ServerTCP("servertcp").start();
+     	servertcp.start();
     	servemulticaster.start();
     	
 

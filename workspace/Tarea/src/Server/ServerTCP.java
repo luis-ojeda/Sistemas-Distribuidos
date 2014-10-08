@@ -9,13 +9,16 @@ public class ServerTCP extends Thread{
 	//Parametros para el servidor de TCD
     // Numero de puerto debe ser mayor que 1024
     public static final int PORT = 9025;
+    
+    String[ ] mensajes = new String[100];
   
     
   
 	
 	//contructor de la clase
-		public ServerTCP(String str) {
+		public ServerTCP(String str,  String[ ] mensajes2) {
 	        super(str);
+	        this.mensajes = mensajes2;
 	    }
 	
 	
@@ -52,7 +55,7 @@ public class ServerTCP extends Thread{
 
                 System.out.println("Cliente conectado: " + sock);
 
-                // Recibir un mensaje de petici�n del cliente
+                // Recibir un mensaje de peticion del cliente
 
                 BufferedReader is = new BufferedReader(
                         new InputStreamReader(sock.getInputStream()));
@@ -62,9 +65,17 @@ public class ServerTCP extends Thread{
                 // Enviar al cliente un mensaje de respuesta
                 PrintStream ios = new PrintStream(sock.getOutputStream());
                 ios.println("Hola desde el servidor!");
+                
+                for(int i=0; i<mensajes.length; i++){
+        			if(mensajes[i]==null){
+        				break;
+        			}
+        			ios.println(mensajes[i]);
+                }
+                ios.println("Hola desde el servidor!");
                 ios.close();
 
-                // Cerrar la conexi�n del socket!
+                // Cerrar la conexion del socket!
 
                 sock.close();
             }

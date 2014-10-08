@@ -12,9 +12,6 @@ public class ServerTCP extends Thread{
     
     String[ ] mensajes = new String[100];
   
-    
-  
-	
 	//contructor de la clase
 		public ServerTCP(String str,  String[ ] mensajes2) {
 	        super(str);
@@ -65,13 +62,13 @@ public class ServerTCP extends Thread{
                 // Enviar al cliente un mensaje de respuesta
                 PrintStream ios = new PrintStream(sock.getOutputStream());
                 ios.println("Hola desde el servidor!");
-                
+                /*
                 for(int i=0; i<mensajes.length; i++){
         			if(mensajes[i]==null){
         				break;
         			}
         			ios.println(mensajes[i]);
-                }
+                }*/
                 ios.println("Hola desde el servidor!");
                 ios.close();
 

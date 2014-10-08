@@ -17,3 +17,9 @@ workspace/.metadata/
 *.xmi
 
 workspace/.metadata/.plugins/org.eclipse.jdt.core/nonChainingJarsCache
+
+workspace/.metadata/.log
+
+*.ini
+
+*.ini

@@ -52,8 +52,8 @@ public class ServerMulticaster extends Thread{
 	
 	
 	
-	 public void sendTextToChat(String message) {
-	      message = "server: "+message+"\n";
+	public void sendTextToChat(String message) {
+	      message = "Server: "+message+"\n";
 	      byte[] buf = message.getBytes();
 	      DatagramPacket dg = new DatagramPacket(buf, buf.length,group,port);
 	      try { 

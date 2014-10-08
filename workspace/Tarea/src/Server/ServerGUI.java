@@ -2,18 +2,8 @@ package Server;
 
 public class ServerGUI {
 	//parametros GUI
-	static String name;	
     ChatFrameServer  gui;
-	ServerMulticaster servermulticaster;
-	String[ ] mensajes = new String[100];
-	  
-	
-	ServerGUI(ChatFrameServer gui2, ServerMulticaster servermulticaster2, String[ ] mensajes2 ){
-		 this.servermulticaster = servermulticaster2;
-		 this.gui = gui2;
-		 this.mensajes= mensajes2 ;
-	}
-	
+	static String name;	
 	
 	public void GUI() {     
 		  this.name = "server";
@@ -21,7 +11,7 @@ public class ServerGUI {
 	      // - despues de ingreso de texto llamar sendTextToChat();
 	      // - despues de cerrar ventana llama a disconnect(). 
 	      gui = new ChatFrameServer("Chat con IP-Multicast: "+name);
-	      gui.input.addKeyListener (new EnterListenerServer(gui,servermulticaster,mensajes));
+	      gui.input.addKeyListener (new EnterListenerServer(this,gui));
 	      gui.addWindowListener(new ExitListenerServer(this));
 	}
 }

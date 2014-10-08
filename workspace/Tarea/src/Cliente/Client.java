@@ -14,11 +14,16 @@ public class Client {
 <<<<<<< HEAD
 	    	//Date cumpleaños = new Date(1963, 8, 30);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	    	//Date cumpleanos = new Date(1963, 8, 30);
 		 ServerGUI servergui = new ServerGUI("ServerGUI");
 		 
 >>>>>>> origin/master
+=======
+		 ServerGUI servergui = new ServerGUI("ServerGUI");
+		 
+>>>>>>> parent of fdefd2b... Se modularizo el servidor
 =======
 		 ServerGUI servergui = new ServerGUI("ServerGUI");
 		 

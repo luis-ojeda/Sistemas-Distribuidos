@@ -33,7 +33,8 @@ public class ChatClient extends Thread{
 	      // - despues de ingreso de texto llamar sendTextToChat();
 	      // - despues de cerrar ventana llama a disconnect(). 
 	      gui = new ChatFrame("Chat con IP-Multicast: "+name);
-	      gui.input.addKeyListener (new EnterListener(this,gui));
+	      gui.port.addKeyListener (new EnterListener(this,gui));
+	      gui.ip.addKeyListener (new EnterListener(this,gui));
 	      gui.addWindowListener(new ExitListener(this));
 	     
 	      try {
@@ -57,16 +58,18 @@ public class ChatClient extends Thread{
 	      }
 	   }
   
-   public void sendTextToChat(String message) {
-      message = name+": "+message+"\n";
-      byte[] buf = message.getBytes();
-      DatagramPacket dg = new DatagramPacket(buf, buf.length,group,port);
-      try { 
-         socket.send(dg); // envia datagrama al grupo
-      }
-      catch (IOException ex) { 
-         System.out.println(ex);
-      }
+   public void getChat(String ipS, String portS) {
+	  TcpCliente tcpcliente = new TcpCliente("Tcpcliente", ipS, portS);
+	  tcpcliente.start();
+//      message = name+": "+message+"\n";
+//      byte[] buf = message.getBytes();
+//      DatagramPacket dg = new DatagramPacket(buf, buf.length,group,port);
+//      try { 
+//         socket.send(dg); // envia datagrama al grupo
+//      }
+//      catch (IOException ex) { 
+//         System.out.println(ex);
+//      }
    }
 
    public void disconnect() {}

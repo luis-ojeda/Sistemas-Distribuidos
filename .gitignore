@@ -23,3 +23,7 @@ workspace/.metadata/.log
 *.ini
 
 *.ini
+
+*.repositories
+
+workspace/.recommenders/

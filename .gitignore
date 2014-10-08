@@ -1,5 +1,5 @@
 *.pydevproject
-.metadata
+.metadata/
 .gradle
 *.class
 bin/
@@ -12,3 +12,8 @@ local.properties
 .settings/
 workspace/.metadata/
 .loadpath
+*.resources
+
+*.xmi
+
+workspace/.metadata/.plugins/org.eclipse.jdt.core/nonChainingJarsCache

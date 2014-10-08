@@ -13,10 +13,7 @@ public class ServerMulticaster extends Thread{
     static int port = 6789;
     public String mensajes;
     
-    //parametros GUI
-    ChatFrameServer  gui;
-	static String name;	
-	
+    
 	
 	
 	//contructor de la clase
@@ -30,23 +27,16 @@ public class ServerMulticaster extends Thread{
 	////////////////////////////////////////////////
 	
 	public void run() {     
-		  this.name = "server";
-	      // crear GUI y manejar eventos:
-	      // - despues de ingreso de texto llamar sendTextToChat();
-	      // - despues de cerrar ventana llama a disconnect(). 
-	      gui = new ChatFrameServer("Chat con IP-Multicast: "+name);
-	      gui.input.addKeyListener (new EnterListenerServer(this,gui));
-	      gui.addWindowListener(new ExitListenerServer(this));
-	     
+		  
 	      try {
 	         socket = new MulticastSocket(port);	// crear socket de multicast!
 	      
 	         // Registrarse en un grupo de Multicast 
 	         group = InetAddress.getByName("231.0.0.1");
 	         socket.joinGroup(group);				// unirse a grupo de multicast
-	         gui.output.append("Conectado...\n");
-
+	       
 		    // Esperar un mensaje y recibirlo
+	         /*
 	        while (true) {
 				byte[] buffer = new byte[1000];
 				DatagramPacket datagram = new DatagramPacket(buffer,buffer.length);
@@ -54,6 +44,7 @@ public class ServerMulticaster extends Thread{
 				String message = new String(datagram.getData());
 				gui.output.append(message);
 	        }
+	        */
 	      } catch (IOException e) { 
 	         e.printStackTrace(); 
 	      }
@@ -62,7 +53,7 @@ public class ServerMulticaster extends Thread{
 	
 	
 	public void sendTextToChat(String message) {
-	      message = name+": "+message+"\n";
+	      message = "Server: "+message+"\n";
 	      byte[] buf = message.getBytes();
 	      DatagramPacket dg = new DatagramPacket(buf, buf.length,group,port);
 	      try { 

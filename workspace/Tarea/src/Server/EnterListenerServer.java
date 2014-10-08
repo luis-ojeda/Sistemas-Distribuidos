@@ -4,17 +4,19 @@ import java.awt.event.*;
 
 public class EnterListenerServer extends KeyAdapter {
    
-	ServerMulticaster client;
+	ServerGUI server;
+	ServerMulticaster servermulticaster;
    ChatFrameServer gui;
+  
 
-   public EnterListenerServer (ServerMulticaster serveMulticaster, ChatFrameServer gui2) {
-      this.client = serveMulticaster;
+   public EnterListenerServer (ServerGUI serverGUI, ChatFrameServer gui2) {
+      this.server = serverGUI;
       this.gui = gui2;
    }   
 
    public void keyPressed(KeyEvent e) {
       if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-          client.sendTextToChat(gui.input.getText());
+    	  servermulticaster.sendTextToChat(gui.input.getText());
           gui.input.setText("");
       }
    }

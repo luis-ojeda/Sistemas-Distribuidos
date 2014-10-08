@@ -1,6 +1,7 @@
 *.pydevproject
 .metadata
 .gradle
+*.class
 bin/
 tmp/
 *.tmp
@@ -9,4 +10,5 @@ tmp/
 *~.nib
 local.properties
 .settings/
+.metadata/
 .loadpath

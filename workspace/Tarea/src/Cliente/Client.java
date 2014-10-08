@@ -10,7 +10,13 @@ public class Client {
 	
 	
 	 public static void main(String args[]) {
+<<<<<<< HEAD
 	    	//Date cumpleaños = new Date(1963, 8, 30);
+=======
+	    	//Date cumpleanos = new Date(1963, 8, 30);
+		 ServerGUI servergui = new ServerGUI("ServerGUI");
+		 
+>>>>>>> origin/master
 		 
 		 TcpCliente tcpcliente = new TcpCliente("Tcpcliente");
 		 ChatClient chatclient = new ChatClient("chatclient");

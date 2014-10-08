@@ -2,11 +2,20 @@ package Cliente;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 class TcpCliente extends Thread{
 	String ipS;
 	int port;
+	int FILE_SIZE = 6022386;
+	FileOutputStream fos = null;
+    BufferedOutputStream bos = null;
+    String PATH_FILE_TO_RECEIVED = "~/Downloads"; // a ser cambiado
 	
 	//contructor de la clase
 	public TcpCliente(String str, String ip, String port) {
@@ -32,6 +41,37 @@ class TcpCliente extends Thread{
 			ps.println("Hola desde el cliente!");
     		BufferedReader is = new BufferedReader(new 
     		                       InputStreamReader(sock.getInputStream()));
+    		//primero servidor manda cantidad de paquetes
+    		int numPackets = Integer.parseInt(is.readLine());
+    		//luego servidor manda tamanio paquete
+    		FILE_SIZE = Integer.parseInt(is.readLine());
+    		fos = new FileOutputStream(PATH_FILE_TO_RECEIVED+ip.toString());
+		    bos = new BufferedOutputStream(fos);
+		    byte [] mybytearray  = new byte [FILE_SIZE];
+		    int next = 0;
+    		//finalmente manda paquetes
+    		for (int i = 0; i<numPackets; i++){
+    			try {
+    				InputStream fis = sock.getInputStream();
+    				int bytesRead = fis.read(mybytearray,0,mybytearray.length);
+    				int current = bytesRead;
+    				do {
+    					bytesRead = fis.read(mybytearray, current, (mybytearray.length-current));
+    					if(bytesRead >= 0) current += bytesRead;
+    				} while(bytesRead > -1);
+
+    				bos.write(mybytearray, next, current);
+    				next = next+current;
+    				System.out.println("Received packet " + i + ", total bytes downloaded=" + next);
+    		    }
+    		    finally {
+    		      if (fos != null) fos.close();
+    		      if (bos != null) bos.close();
+    		      if (sock != null) sock.close();
+    		    }
+    		}
+    		bos.flush();
+    		System.out.println("Historial recibido.");
             System.out.println(is.readLine());
             
           }catch(SocketException e){ System.out.println("SocketException " + e); 

@@ -1,2 +1,12 @@
-
-*.snap
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath

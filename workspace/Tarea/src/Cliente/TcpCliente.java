@@ -64,12 +64,14 @@ class TcpCliente extends Thread{
     				next = next+current;
     				System.out.println("Received packet " + i + ", total bytes downloaded=" + next);
     		    }
+    			// manejo de paquetes perdidos
     		    finally {
-    		      if (fos != null) fos.close();
-    		      if (bos != null) bos.close();
-    		      if (sock != null) sock.close();
+    		    	if (sock != null) sock.close();
     		    }
     		}
+    		if (fos != null) fos.close();
+		    if (bos != null) bos.close();
+		    if (sock != null) sock.close();
     		bos.flush();
     		System.out.println("Historial recibido.");
             System.out.println(is.readLine());

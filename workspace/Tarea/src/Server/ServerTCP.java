@@ -79,7 +79,7 @@ public class ServerTCP extends Thread{
             }
         } catch (SocketException se) {
             System.out.println("Problemas con socket del servidor " + se.getMessage());
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("No pudo arrancar " + e.getMessage());
         }
 

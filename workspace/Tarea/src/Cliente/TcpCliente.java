@@ -11,12 +11,13 @@ import java.io.InputStream;
 
 class TcpCliente extends Thread{
 	String ipS;
+	String linea;
 	int port;
 	int FILE_SIZE = 6022386;
 	FileOutputStream fos = null;
     BufferedOutputStream bos = null;
-    String PATH_FILE_TO_RECEIVED = "~/Downloads"; // a ser cambiado
-	
+    //String PATH_FILE_TO_RECEIVED = "~/Downloads/"; // a ser cambiado
+    String PATH_FILE_TO_RECEIVED = "prueba.txt"; // a ser cambiado
 	//contructor de la clase
 	public TcpCliente(String str, String ip, String port) {
         super(str);
@@ -42,10 +43,14 @@ class TcpCliente extends Thread{
     		BufferedReader is = new BufferedReader(new 
     		                       InputStreamReader(sock.getInputStream()));
     		//primero servidor manda cantidad de paquetes
-    		int numPackets = Integer.parseInt(is.readLine());
+    		linea = is.readLine();
+    		System.out.println("Cantidad de paquetes a recibir:" + linea);
+    		int numPackets = Integer.parseInt(linea);
     		//luego servidor manda tamanio paquete
-    		FILE_SIZE = Integer.parseInt(is.readLine());
-    		fos = new FileOutputStream(PATH_FILE_TO_RECEIVED+ip.toString());
+    		linea = is.readLine();
+    		System.out.println("Packet Size:" + linea);
+    		FILE_SIZE = Integer.parseInt(linea);
+    		fos = new FileOutputStream(PATH_FILE_TO_RECEIVED/*+ip.toString()+".txt"*/);
 		    bos = new BufferedOutputStream(fos);
 		    byte [] mybytearray  = new byte [FILE_SIZE];
 		    int next = 0;
@@ -66,7 +71,7 @@ class TcpCliente extends Thread{
     		    }
     			// manejo de paquetes perdidos
     		    finally {
-    		    	if (sock != null) sock.close();
+    		    	//if (sock != null) sock.close();
     		    }
     		}
     		if (fos != null) fos.close();

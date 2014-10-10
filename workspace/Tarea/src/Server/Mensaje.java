@@ -59,11 +59,11 @@ public class Mensaje {
 
 
 
-	public void Mensaje_al_cliente(String clave, Socket sock){
+	public void Mensaje_al_cliente(String clave, Socket sock, BufferedReader is){
 
 		if((clave =="GET" )     ||(true)    ){
 			try {
-				envio_paquetes(  sock);
+				envio_paquetes(  sock, is);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -89,7 +89,7 @@ public class Mensaje {
 	}
 
 	// Funcion encargada del envio de los paquetes
-	public  void envio_paquetes (Socket sock ) throws IOException {
+	public  void envio_paquetes (Socket sock, BufferedReader is) throws IOException {
 		
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
@@ -114,7 +114,6 @@ public class Mensaje {
 			ios.println(particiones);
     		//luego servidor manda tamanio paquete
 			ios.println(largo_hist_max);
-			
 			
 			// luego mandamos paquetes
 			for (int i= 0;    i < particiones   ;i++){

@@ -69,7 +69,7 @@ public class ServerTCP extends Thread{
                 //envia el mensaje
                String clave = "Get";
                
-               mensajes.Mensaje_al_cliente(clave, sock);
+               mensajes.Mensaje_al_cliente(clave, sock, is);
               
                 ios.close();
 

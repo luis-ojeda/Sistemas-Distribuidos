@@ -2,7 +2,9 @@ package Cliente;
 
 import java.io.*;
 import java.net.*;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,10 +17,9 @@ class TcpCliente extends Thread{
 	int port;
 	int FILE_SIZE = 6022386;
 	FileOutputStream fos = null;
-	BufferedOutputStream bos = null;
 	//String PATH_FILE_TO_RECEIVED = "~/Downloads/"; // a ser cambiado
 	String PATH_FILE_TO_RECEIVED = "prueba.txt"; // a ser cambiado
-	//contructor de la clase
+	//constructor de la clase
 	public TcpCliente(String str, String ip, String port) {
 		super(str);
 		this.ipS = ip;
@@ -40,58 +41,69 @@ class TcpCliente extends Thread{
 			sock= new Socket(ip,port);
 			ps= new	PrintStream(sock.getOutputStream());
 			ps.println("Hola desde el cliente!");
-			InputStream fis = sock.getInputStream();
-			InputStream foas = sock.getInputStream();
+			
+			BufferedInputStream fis = new BufferedInputStream(sock.getInputStream());
 			BufferedReader is = new BufferedReader(new 
 					InputStreamReader(fis));
-			System.out.println("Cantidad :" + foas.available());
+			
 			//primero servidor manda cantidad de paquetes
 			linea = is.readLine();
-			System.out.println("Cantidad :" + foas.available());
-			foas.skip(linea.length());
-			System.out.println("Cantidad :" + foas.available());
-			System.out.println("Cantida22d :" + linea.length());
 			System.out.println("Cantidad de paquetes a recibir:" + linea);
 			int numPackets = Integer.parseInt(linea);
+			
 			//luego servidor manda tamanio paquete
 			linea = is.readLine();
 			System.out.println("Packet Size:" + linea);
 			FILE_SIZE = Integer.parseInt(linea);
 			
 			fos = new FileOutputStream(PATH_FILE_TO_RECEIVED/*+ip.toString()+".txt"*/);
-			bos = new BufferedOutputStream(fos);
-			byte [] mybytearray  = new byte [FILE_SIZE];
+			byte [] tempbytearray  = new byte [FILE_SIZE];
 			int next = 0;
+			
+			byte [] archivo = new byte [FILE_SIZE*numPackets];
+			
+			sock.close();
+			
+			// abrimos nuevamente la conexion con el servidor para mandar flujo de bytes
+			sock = new Socket(ip,port);
+			System.out.println("Reconectando:" + sock);
+			InputStream copia = sock.getInputStream();
+			int current = 0;
 			
 			//finalmente manda paquetes
 			for (int i = 0; i<numPackets; i++){
+				
+				
 				try {
-					int bytesRead = foas.read(mybytearray,0,mybytearray.length);
-					int current = bytesRead;
+					int bytesRead = copia.read(tempbytearray,0,tempbytearray.length);
+					current = bytesRead;
 					do {
-						bytesRead = foas.read(mybytearray, current, (mybytearray.length-current));
+						bytesRead = copia.read(tempbytearray, current, (tempbytearray.length-current));
 						if(bytesRead >= 0)
 							current += bytesRead;
 					} while(((current < FILE_SIZE)&&(bytesRead > -1))||(current <= -1));
-					System.out.println("next:" + next + ", current:" + current);
-					bos.write(mybytearray, next, current);
+					//copiamos los bytes recibidos al arreglo de bytes del archivo
+					System.arraycopy(tempbytearray, 0, archivo, next, current);
+
+//					String str = new String(tempbytearray, "UTF-8");
+//					System.out.println("archivo:" + str +"/");
+					
 					next = next+current;
-					System.out.println("Received packet " + i + ", total bytes downloaded=" + next);
+					System.out.println("Received packet " + (i+1) + ", total bytes downloaded=" + next);
 				}
 				// manejo de paquetes perdidos
 				finally {
 					//if (sock != null) sock.close();
 				}
 			}
+			
+			fos.write(archivo,0,next);
 			if (fos != null) fos.close();
-			if (bos != null) bos.close();
 			if (sock != null) sock.close();
-			bos.flush();
 			System.out.println("Historial recibido.");
-			System.out.println(is.readLine());
 
 		}catch(SocketException e){ System.out.println("SocketException " + e); 
-		}catch(IOException e){ System.out.println("IOException " + e.getMessage());
+		}catch(IOException e){ e.printStackTrace();
 
 		// Finalmente cerrar el socket desde el lado cliente
 

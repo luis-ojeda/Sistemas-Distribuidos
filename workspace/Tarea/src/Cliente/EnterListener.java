@@ -13,7 +13,10 @@ public class EnterListener extends KeyAdapter {
 
    public void keyPressed(KeyEvent e) {
       if (e.getKeyCode()==KeyEvent.VK_ENTER) {
-          client.getChat(gui.ip.getText(), gui.port.getText());
+//    	  if(gui.ip.getText() == ""){
+    		  client.getChat("localhost", "9025");
+//    	  } else
+//    		  client.getChat(gui.ip.getText(), gui.port.getText());
           //gui.port.setText("");
       }
    }

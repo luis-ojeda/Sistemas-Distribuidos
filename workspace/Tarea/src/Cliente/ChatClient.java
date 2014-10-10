@@ -32,7 +32,7 @@ public class ChatClient extends Thread{
 	      // crear GUI y manejar eventos:
 	      // - despues de ingreso de texto llamar sendTextToChat();
 	      // - despues de cerrar ventana llama a disconnect(). 
-	      gui = new ChatFrame("Chat con IP-Multicast: "+name);
+	      gui = new ChatFrame(name);
 	      gui.port.addKeyListener (new EnterListener(this,gui));
 	      gui.ip.addKeyListener (new EnterListener(this,gui));
 	      gui.addWindowListener(new ExitListener(this));
@@ -59,8 +59,12 @@ public class ChatClient extends Thread{
 	   }
   
    public void getChat(String ipS, String portS) {
-	  TcpCliente tcpcliente = new TcpCliente("Tcpcliente", ipS, portS);
-	  tcpcliente.start();
+	   String name = gui.getTitle();
+	   gui.output.append(name + ": Solicitando registro al servidor "+ipS+"\n");
+	   TcpCliente tcpcliente = new TcpCliente("Tcpcliente", ipS, portS);
+	   tcpcliente.start();
+	   gui.output.append(name + ": Solicitud terminada");
+	  
 //      message = name+": "+message+"\n";
 //      byte[] buf = message.getBytes();
 //      DatagramPacket dg = new DatagramPacket(buf, buf.length,group,port);

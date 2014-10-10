@@ -3,8 +3,10 @@ package Server;
 
 import java.util.ArrayList;
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.nio.channels.IllegalBlockingModeException;
 
 public class Mensaje {
@@ -12,7 +14,7 @@ public class Mensaje {
 
 	ChatFrameServer  gui;
 	String todo;
-	int Max_buffer = 100;
+	int Max_buffer = 1000;
 	//
 	FileWriter fichero = null;
 	PrintWriter pw = null;
@@ -59,11 +61,11 @@ public class Mensaje {
 
 
 
-	public void Mensaje_al_cliente(String clave, Socket sock, BufferedReader is){
+	public void Mensaje_al_cliente(String clave, Socket sock, ServerSocket sersock){
 
 		if((clave =="GET" )     ||(true)    ){
 			try {
-				envio_paquetes(  sock, is);
+				envio_paquetes(  sock, sersock);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -89,22 +91,21 @@ public class Mensaje {
 	}
 
 	// Funcion encargada del envio de los paquetes
-	public  void envio_paquetes (Socket sock, BufferedReader is) throws IOException {
+	public  void envio_paquetes (Socket sock, ServerSocket sersock) throws IOException {
 		
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;
 		OutputStream os = null;
 		ServerSocket servsock = null;
-		int largo_hist_max = 1000;
 		int particiones;
 		try {
 			
 			File myFile = new File (Archivo_de_registro);
 			byte [] mybytearray  = new byte [(int)myFile.length()];
-			byte [] buffertemp = new byte [largo_hist_max];
+			byte [] buffertemp = new byte [Max_buffer];
 			fis = new FileInputStream(myFile);
 			bis = new BufferedInputStream(fis);
-			particiones = (int)Math.ceil((float)mybytearray.length / (float)largo_hist_max ) ;
+			particiones = (int)Math.ceil((float)mybytearray.length / (float)Max_buffer ) ;
 			//primero mandamos metadata
 			System.out.println("Enviando metadata...");
 			System.out.println("Particiones = "+particiones);
@@ -113,23 +114,27 @@ public class Mensaje {
 			//primero servidor manda cantidad de paquetes
 			ios.println(particiones);
     		//luego servidor manda tamanio paquete
-			ios.println(largo_hist_max);
+			ios.println(Max_buffer);
+
+			sock.close();
+			sock = sersock.accept();
+			
 			
 			// luego mandamos paquetes
 			for (int i= 0;    i < particiones   ;i++){
-				if((i+1)*largo_hist_max <mybytearray.length){
-					bis.read(mybytearray,i*largo_hist_max ,largo_hist_max);
+				if((i+1)*Max_buffer <mybytearray.length){
+					bis.read(mybytearray,i*Max_buffer ,Max_buffer);
 
 					os = sock.getOutputStream();
 					System.out.println("Sending " + Archivo_de_registro + "(" + mybytearray.length + " bytes)");
-					os.write(buffertemp,0,buffertemp.length);
+					os.write(mybytearray,i*Max_buffer ,Max_buffer);
 					os.flush();
 				}else{
-					bis.read(mybytearray,i*largo_hist_max ,mybytearray.length-i*largo_hist_max);
+					bis.read(mybytearray,i*Max_buffer ,mybytearray.length-i*Max_buffer);
 
 					os = sock.getOutputStream();
 					System.out.println("Sending " + Archivo_de_registro + "(" + mybytearray.length + " bytes)");
-					os.write(buffertemp,0,buffertemp.length);
+					os.write(mybytearray,i*Max_buffer ,mybytearray.length-i*Max_buffer);
 					os.flush();
 				}	System.out.println("Enviada parte "+(i+1) + " de " + particiones+"\n");
 			}

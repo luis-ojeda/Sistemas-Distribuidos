@@ -2,10 +2,6 @@ package Cliente;
 import java.net.*;
 import java.io.*;
 
-import Server.ChatFrameServer;
-import Server.ServerMulticaster;
-import Server.ServerTCP;
-
 public class Client {
 	Client(){
 	}

@@ -2,9 +2,6 @@ package Cliente;
 import java.net.*;
 import java.io.*;
 
-import Server.ChatFrameServer;
-import Server.EnterListenerServer;
-import Server.ExitListenerServer;
 
 public class ChatClient extends Thread{
 	

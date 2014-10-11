@@ -16,7 +16,7 @@ public class ChatFrame extends Frame {
       add ("South", ip = new TextField ()); 
       add ("East", port = new TextField ());
       pack (); 
-      show (); 
+      setVisible (true); 
       ip.requestFocus ();
    }
   

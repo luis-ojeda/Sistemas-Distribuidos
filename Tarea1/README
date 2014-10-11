@@ -32,3 +32,9 @@ Para ejecutar el Servidor, se debe realizar 'make runserver'. Al ejecutar, se le
 	* Puerto Multicast = 6789
 	* Puerto Servidor = 9025
 	- Nota: para acceder a los valores por defecto, cuando solicite ip multicast se debe ingresar el caracter '@'
+	
+4.- Historial:
+El servidor almacena dentro de la carpeta 'data' ubicado en la raiz el historial de mensajes en un archivo que se llama 'archivo.txt'.
+
+Cuando el cliente solicita al servidor el historial, el cliente lo guardará en la carpeta 'data' ubicado en la raiz en un archivo llamado 'historial.txt'.
+	- Nota: el archivo 'historial.txt' debe existir en la carpeta 'data' antes de que el cliente solicite el historial.

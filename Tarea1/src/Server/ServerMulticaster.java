@@ -8,10 +8,13 @@ public class ServerMulticaster extends Thread{
   static InetAddress group;
   static MulticastSocket socket;
   static int port = 6789;
+  public String MIP;
   public String mensajes;
 
-  public ServerMulticaster(String str) {
+  public ServerMulticaster(String str, String MIP, int port) {
     super(str);
+    this.port = port;
+    this.MIP = MIP;
   }
 		
   public void run() {     
@@ -20,7 +23,7 @@ public class ServerMulticaster extends Thread{
       socket = new MulticastSocket(port);	// crear socket de multicast!
 	      
       // Registrarse en un grupo de Multicast 
-      group = InetAddress.getByName("231.0.0.1");
+      group = InetAddress.getByName(MIP);
       socket.joinGroup(group);				// unirse a grupo de multicast
 	       
       // Esperar un mensaje y recibirlo

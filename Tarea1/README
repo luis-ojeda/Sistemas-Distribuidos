@@ -1,0 +1,34 @@
+Tarea 1:
+
+1.- Sobre el Código:
+Existen 2 carpetas, una para el trabajo de Cliente y otra para Servidor. Cada carpeta contiene sus propias clases: no se relacionan entre sí.
+
+En la carpeta Cliente cada clase está contenida en un archivo. No existen clases implícitas. La clase ChatClient realiza el manejo de los mensajes recibidos por multicast, mientras que la clase TcpCliente realiza el trabajo de recuperar el historial y almacenarlo en un archivo.
+
+En la carpeta Server cada clase está contenida en un archivo. No existen clases implícitas. La clase ServerMulticaster realiza el trabajo de enviar mensajes al socket multicast, mientras que la clase ServerTCP realiza el manejo de solicitudes de los clientes y envía el historial. Además, existe la clase Mensaje, el cual realiza las tareas más directas en el manejo de buffers.
+
+2.- Makefile:
+El makefile se compone de 6 tareas:
+ * compilarserver: compila lo que corresponde al servidor
+ * compilarcliente: compila lo que corresponde al cliente
+ * runserver: ejecuta el servidor
+ * runcliente: ejecuta el cliente
+ * clean: elimina los archivos .class creados por las tareas compilarserver y compilarcliente.
+ * all: ejecuta las tareas compilarserver y compilarcliente.
+ 
+3.- Compilación y ejecución:
+Para correr el programa cliente o servidor, se deben compilar primeramente lo que corresponda. Si se decide ejecutar ambas, se debe ubicar el terminal en la carpeta raiz de la tarea y luego compilar realizando 'make'.
+
+Habiendo compilado, para ejecutar el Cliente, se debe realizar 'make runcliente'. Al ejecutar, se le solicitará al usuario via terminal que ingrese la ip y puerto multicast, y luego solicitará la ip y puerto del servidor (para envío de historial de forma unicast). Los valores por defecto son:
+  * IP Multicast = 231.0.0.1
+	* Puerto Multicast = 6789
+	* IP Servidor = localhost
+	* Puerto Servidor = 9025
+	- Nota1: para acceder a los valores por defecto de IP Multicast y Puerto Multicast, cuando solicite ip multicast se debe ingresar el caracter '@'
+	- Nota2: para acceder a los valores por defecto de IP Servidor y Puerto Servidor, cuando solicite ip servidor se debe ingresar el caracter '@'
+	
+Para ejecutar el Servidor, se debe realizar 'make runserver'. Al ejecutar, se le solicitará al usuario que ingrese la ip y puerto multicast, y luego solicitará puerto del servidor (para envío de historial de forma unicast). Los valores por defecto son:
+  * IP Multicast = 231.0.0.1
+	* Puerto Multicast = 6789
+	* Puerto Servidor = 9025
+	- Nota: para acceder a los valores por defecto, cuando solicite ip multicast se debe ingresar el caracter '@'
